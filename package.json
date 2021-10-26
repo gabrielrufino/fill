@@ -20,5 +20,8 @@
   "bugs": {
     "url": "https://github.com/gabrielrufino/fill/issues"
   },
-  "homepage": "https://github.com/gabrielrufino/fill#readme"
+  "homepage": "https://github.com/gabrielrufino/fill#readme",
+  "devDependencies": {
+    "jest": "^27.3.1"
+  }
 }
