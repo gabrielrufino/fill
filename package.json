@@ -3,6 +3,9 @@
   "version": "0.0.1",
   "description": "Fill databases with dummy data using yaml files",
   "main": "src/index.js",
+  "bin": {
+    "fill": "src/index.js"
+  },
   "scripts": {
     "test": "jest"
   },
