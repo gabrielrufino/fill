@@ -2,9 +2,9 @@
   "name": "@gabrielrufino/fill",
   "version": "0.0.1",
   "description": "Fill databases with dummy data using yaml files",
-  "main": "src/index.js",
+  "main": "build/index.js",
   "bin": {
-    "fill": "src/index.js"
+    "fill": "build/index.js"
   },
   "scripts": {
     "test": "jest"
