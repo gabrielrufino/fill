@@ -1,12 +1,10 @@
 #!/usr/bin/env node
 
-'use strict'
-
-const faker = require('faker')
-const fs = require('fs')
-const knex = require('knex')
-const path = require('path')
-const YAML = require('yaml')
+import faker from 'faker'
+import fs from 'fs'
+import knex from 'knex'
+import path from 'path'
+import YAML from 'yaml'
 
 async function main() {
   const [,, fileName] = process.argv
