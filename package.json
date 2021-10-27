@@ -1,0 +1,39 @@
+{
+  "name": "@gabrielrufino/fill",
+  "version": "0.0.1",
+  "description": "Fill databases with dummy data using yaml files",
+  "main": "build/index.js",
+  "bin": {
+    "fill": "build/index.js"
+  },
+  "scripts": {
+    "test": "jest",
+    "build": "tsc"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gabrielrufino/fill.git"
+  },
+  "keywords": [
+    "CLI",
+    "Database",
+    "Data"
+  ],
+  "author": "Gabriel Rufino <contato@gabrielrufino.com>",
+  "license": "UNLICENSED",
+  "bugs": {
+    "url": "https://github.com/gabrielrufino/fill/issues"
+  },
+  "homepage": "https://github.com/gabrielrufino/fill#readme",
+  "devDependencies": {
+    "@types/faker": "^5.5.9",
+    "jest": "^27.3.1",
+    "typescript": "^4.4.4"
+  },
+  "dependencies": {
+    "faker": "^5.5.3",
+    "knex": "^0.95.11",
+    "pg": "^8.7.1",
+    "yaml": "^1.10.2"
+  }
+}
