@@ -6,6 +6,8 @@ import knex from 'knex'
 import path from 'path'
 import YAML from 'yaml'
 
+import ConfigFile from './interfaces/ConfigFile'
+
 async function main() {
   const [,, fileName] = process.argv
 
@@ -21,7 +23,7 @@ async function main() {
 
   const fileContent = await fs.promises.readFile(filePath, { encoding: 'utf8' })
 
-  const { config } = YAML.parse(fileContent)
+  const { config }: ConfigFile = YAML.parse(fileContent)
 
   const database = knex({
     client: 'pg',
@@ -36,11 +38,15 @@ async function main() {
 
   for (const table of config.tables) {
     for (const _ in Array(table.quantity).fill(null)) {
-      const data = {}
+      const data: any = {}
   
       for (const column of table.columns) {
-        const [context, type] = column.generator.split('.')
-        data[column.name] = faker[context][type]()
+        if (column.value) {
+          data[column.name] = column.value
+        } else if (column.generator) {
+          const [context, type] = column.generator.split('.')
+          data[column.name] = faker[context][type]()
+        }
       }
 
       await database(table.name).insert(data)
