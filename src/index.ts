@@ -20,7 +20,7 @@ async function main() {
     throw new Error('File not found')
   }
 
-  if (!fileName.endsWith('.yml') || !fileName.endsWith('.yaml')) {
+  if (!fileName.endsWith('.yml') && !fileName.endsWith('.yaml')) {
     throw new Error('File should have the yaml format')
   }
 
