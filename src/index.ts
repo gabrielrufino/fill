@@ -11,67 +11,74 @@ import YAML from 'yaml'
 import ConfigFile from './interfaces/ConfigFile'
 
 async function main() {
-  const [,, fileName] = process.argv
-  const pipeline = await util.promisify(stream.pipeline)
+  try {
+    const [,, fileName] = process.argv
+    const pipeline = await util.promisify(stream.pipeline)
 
-  const filePath = path.join(process.cwd(), fileName)
+    const filePath = path.join(process.cwd(), fileName)
 
-  if (!fs.existsSync(filePath)) {
-    throw new Error('File not found')
-  }
-
-  if (!fileName.endsWith('.yml') && !fileName.endsWith('.yaml')) {
-    throw new Error('File should have the yaml format')
-  }
-
-  const fileContent = await fs.promises.readFile(filePath, { encoding: 'utf8' })
-
-  const { config }: ConfigFile = YAML.parse(fileContent)
-
-  const database = knex({
-    client: 'pg',
-    connection: {
-      host : config.connection.host,
-      port : config.connection.port,
-      user : config.connection.user,
-      password : config.connection.pass,
-      database : config.connection.database
+    if (!fs.existsSync(filePath)) {
+      throw new Error('File not found')
     }
-  })
 
-  await database.select('TRUE')
+    if (!fileName.endsWith('.yml') && !fileName.endsWith('.yaml')) {
+      throw new Error('File should have the yaml format')
+    }
 
-  await pipeline(
-    async function* () {
-      for (const table of config.tables) {
-        for (const _ in Array(table.quantity).fill(null)) {
-          const data: any = {}
-      
-          for (const column of table.columns) {
-            if (column.value) {
-              data[column.name] = column.value
-            } else if (column.generator) {
-              const [context, type] = column.generator.split('.')
-              data[column.name] = faker[context][type]()
+    const fileContent = await fs.promises.readFile(filePath, { encoding: 'utf8' })
+
+    const { config }: ConfigFile = YAML.parse(fileContent)
+
+    const database = knex({
+      client: 'pg',
+      connection: {
+        host : config.connection.host,
+        port : config.connection.port,
+        user : config.connection.user,
+        password : config.connection.pass,
+        database : config.connection.database
+      }
+    })
+
+    await database.select('TRUE')
+
+    await pipeline(
+      async function* () {
+        for (const table of config.tables) {
+          for (const _ in Array(table.quantity).fill(null)) {
+            const data: any = {}
+
+            for (const column of table.columns) {
+              if (column.value) {
+                data[column.name] = column.value
+              } else if (column.generator) {
+                const [context, type] = column.generator.split('.')
+                data[column.name] = faker[context][type]()
+              }
+            }
+
+            yield {
+              tableName: table.name,
+              data
             }
           }
-    
-          yield {
-            tableName: table.name,
-            data
-          }
+        }    
+      },
+      async function* (stream) {
+        for await (const chunk of stream) {
+          const { tableName, data } = chunk
+          await database(tableName).insert(data)
         }
-      }    
-    },
-    async function* (stream) {
-      for await (const chunk of stream) {
-        const { tableName, data } = chunk
-        await database(tableName).insert(data)
       }
-    }
-  )
+    )
 
-  database.destroy()
+    database.destroy()
+  } catch (error) {
+    if (error instanceof Error) {
+      console.error(error.message)
+      process.exit(1)
+    }
+  }
 }
 
 main()
