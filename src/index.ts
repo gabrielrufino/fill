@@ -39,6 +39,8 @@ async function main() {
     }
   })
 
+  await database.select('TRUE')
+
   await pipeline(
     async function* () {
       for (const table of config.tables) {
