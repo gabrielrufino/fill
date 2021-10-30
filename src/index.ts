@@ -8,6 +8,7 @@ import stream from 'stream'
 import util from 'util'
 import YAML from 'yaml'
 
+import { version as packageVersion } from '../package.json';
 import ConfigFile from './interfaces/ConfigFile'
 
 const generators: any = {
@@ -31,7 +32,11 @@ async function main() {
 
     const fileContent = await fs.promises.readFile(filePath, { encoding: 'utf8' })
 
-    const { config }: ConfigFile = YAML.parse(fileContent)
+    const { version, config }: ConfigFile = YAML.parse(fileContent)
+
+    if (String(version).split('.')[0] !== packageVersion.split('.')[0]) {
+      throw new Error('Incorrect config file version')
+    }
 
     const database = knex({
       client: 'pg',
