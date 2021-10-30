@@ -10,6 +10,10 @@ import YAML from 'yaml'
 
 import ConfigFile from './interfaces/ConfigFile'
 
+const generators: any = {
+  ...faker
+};
+
 async function main() {
   try {
     const [,, fileName] = process.argv
@@ -53,7 +57,7 @@ async function main() {
                 data[column.name] = column.value
               } else if (column.generator) {
                 const [context, type] = column.generator.split('.')
-                data[column.name] = faker[context][type]()
+                data[column.name] = generators[context][type]()
               }
             }
 
