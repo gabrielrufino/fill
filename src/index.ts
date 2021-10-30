@@ -44,7 +44,7 @@ async function main() {
       }
     })
 
-    await database.select('TRUE')
+    await database.raw('SELECT 1')
 
     await pipeline(
       async function* () {
