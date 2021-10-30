@@ -1,8 +1,8 @@
 {
   "name": "@gabrielrufino/fill",
-  "version": "0.0.2",
+  "version": "0.1.0",
   "description": "Fill databases with dummy data using yaml files",
-  "main": "build/index.js",
+  "main": "build/src/index.js",
   "bin": {
     "fill": "build/index.js"
   },
