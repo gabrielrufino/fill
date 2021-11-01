@@ -10,7 +10,7 @@ import YAML from 'yaml';
 
 import { clients } from './maps';
 import { version as packageVersion } from '../package.json';
-import ConfigFile from './interfaces/ConfigFile';
+import { ConfigFile } from './interfaces';
 
 const generators: any = {
   ...faker,
