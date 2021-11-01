@@ -1,5 +1,5 @@
 const clients = new Map([
-  ['mysql', 'mysql'],
+  ['mysql', 'mysql2'],
   ['postgres', 'pg'],
   ['sqlite', 'sqlite3']
 ])
