@@ -8,6 +8,7 @@ import stream from 'stream'
 import util from 'util'
 import YAML from 'yaml'
 
+import { clients } from './maps'
 import { version as packageVersion } from '../package.json';
 import ConfigFile from './interfaces/ConfigFile'
 
@@ -39,7 +40,7 @@ async function main() {
     }
 
     const database = knex({
-      client: 'pg',
+      client: clients.get(config.connection.type),
       connection: {
         host : config.connection.host,
         port : config.connection.port,
