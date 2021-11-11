@@ -19,7 +19,7 @@ const generators: any = {
 async function main() {
   try {
     const [,, fileName] = process.argv;
-    const pipeline = await util.promisify(stream.pipeline);
+    const pipeline = util.promisify(stream.pipeline);
 
     const filePath = path.join(process.cwd(), fileName);
 
