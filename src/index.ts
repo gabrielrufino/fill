@@ -19,7 +19,7 @@ const generators: any = {
 async function main() {
   try {
     const [,, fileName] = process.argv;
-    const pipeline = await util.promisify(stream.pipeline);
+    const pipeline = util.promisify(stream.pipeline);
 
     const filePath = path.join(process.cwd(), fileName);
 
@@ -55,7 +55,7 @@ async function main() {
     await pipeline(
       async function* () {
         for (const table of config.tables) {
-          for (const _ in Array(table.quantity).fill(null)) {
+          for (let i = 1; i <= table.quantity; i += 1) {
             const data: any = {};
 
             for (const column of table.columns) {
@@ -74,10 +74,11 @@ async function main() {
           }
         }
       },
-      async function* (stream) {
-        for await (const chunk of stream) {
+      async function* (streaming) {
+        for await (const chunk of streaming) {
           const { tableName, data } = chunk;
           await database(tableName).insert(data);
+          yield;
         }
       },
     );
