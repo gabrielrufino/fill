@@ -3,6 +3,7 @@
   "version": "0.1.2",
   "description": "Fill databases with dummy data using yaml files",
   "main": "build/src/index.js",
+  "type": "module",
   "bin": {
     "fill": "build/index.js"
   },
