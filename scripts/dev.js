@@ -1,6 +1,6 @@
 'use strict'
 
-import { spawn } from 'child_process'
+const { spawn } = require('child_process')
 
 spawn('npm', ['run', 'build', '--', '--watch'])
   .stdout
