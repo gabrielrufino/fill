@@ -10,11 +10,10 @@ spawn('npm', ['link'])
   .pipe(process.stdout)
 
 const close = () => {
-  child_process
-    .spawn('npm', ['unlink'])
+  spawn('npm', ['unlink'])
     .stdout
     .pipe(process.stdout)
-  process.exit()
+    .on('end', process.exit)
 }
 
 process.on('SIGHUP', close)
