@@ -5,7 +5,7 @@
   "main": "build/src/index.js",
   "type": "module",
   "bin": {
-    "fill": "build/index.js"
+    "fill": "build/src/index.js"
   },
   "scripts": {
     "dev": "node ./scripts/dev.js",
