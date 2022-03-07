@@ -1,13 +1,11 @@
 'use strict'
 
-import child_process from 'child_process'
+import { spawn } from 'child_process'
 
-child_process
-  .spawn('npm', ['run', 'build', '--', '--watch'])
+spawn('npm', ['run', 'build', '--', '--watch'])
   .stdout
   .pipe(process.stdout)
-child_process
-  .spawn('npm', ['link'])
+spawn('npm', ['link'])
   .stdout
   .pipe(process.stdout)
 
