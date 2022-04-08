@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-import faker from 'faker';
+import faker from '@faker-js/faker';
 import fs from 'fs';
 import knex from 'knex';
 import path from 'path';
