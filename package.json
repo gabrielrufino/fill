@@ -9,6 +9,7 @@
   "scripts": {
     "dev": "node ./scripts/dev.js",
     "lint": "eslint src/**/*.ts",
+    "reinstall": "rimraf node_modules && npm ci",
     "test": "jest",
     "build": "tsc"
   },
