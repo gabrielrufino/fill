@@ -1,22 +1,19 @@
 'use strict'
 
-const child_process = require('child_process')
+const { spawn } = require('child_process')
 
-child_process
-  .spawn('npm', ['link'])
+spawn('npm', ['run', 'build', '--', '--watch'])
   .stdout
   .pipe(process.stdout)
-child_process
-  .spawn('npm', ['run', 'build', '--', '--watch'])
+spawn('npm', ['link'])
   .stdout
   .pipe(process.stdout)
 
 const close = () => {
-  child_process
-    .spawn('npm', ['unlink'])
+  spawn('npm', ['unlink'])
     .stdout
     .pipe(process.stdout)
-  process.exit()
+    .on('end', process.exit)
 }
 
 process.on('SIGHUP', close)
