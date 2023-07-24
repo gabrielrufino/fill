@@ -1,6 +1,6 @@
 type Generator = `${string}.${string}`
 
-export default interface ConfigFile {
+export interface ConfigFile {
   version: number
   config: {
     connection: {
