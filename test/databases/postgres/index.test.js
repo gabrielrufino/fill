@@ -1,8 +1,8 @@
-const { spawnSync, execSync } = require('child_process')
-const { beforeAll, afterAll } = require('@jest/globals')
+const { spawnSync, execSync } = require('child_process');
+const { beforeAll, afterAll } = require('@jest/globals');
 
 describe('Postgres', () => {
-  const containerName = 'postgres_fill_db'
+  const containerName = 'postgres_fill_db';
 
   beforeAll(() => {
     spawnSync('docker', [
@@ -13,25 +13,25 @@ describe('Postgres', () => {
       '--env', 'POSTGRES_DB=postgres',
       '--name', containerName,
       '--detach',
-      'postgres:13'
-    ])
-  })
+      'postgres:13',
+    ]);
+  });
 
   afterAll(() => {
     spawnSync('docker', [
       'container',
       'stop',
-      containerName
-    ])
+      containerName,
+    ]);
 
     spawnSync('docker', [
       'container',
       'rm',
-      containerName
-    ])
-  })
+      containerName,
+    ]);
+  });
 
   it('Should insert data in the database', () => {
-    expect(1).toBe(1)
-  })
-})
+    expect(1).toBe(1);
+  });
+});

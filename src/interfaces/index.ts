@@ -1,1 +1,1 @@
-export { default as ConfigFile } from './ConfigFile';
+export { ConfigFile } from './ConfigFile';

@@ -1,18 +1,29 @@
-name: Publish Node.js Package
+name: CD
 
 on:
-  push:
-    branches: [ 'main' ]
+  workflow_run:
+    workflows: ['CI']
+    types:
+      - completed
+    branches:
+      - main
 
 jobs:
+  ci:
+    name: CI
+    runs-on: ubuntu-latest
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    steps:
+      - run: exit 0
   build:
+    needs:
+      - ci
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      # Setup .npmrc file to publish to npm
-      - uses: actions/setup-node@v2
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
         with:
-          node-version: '14.x'
+          node-version: '16.x'
           registry-url: 'https://registry.npmjs.org'
       - run: npm ci
       - run: npm run build
