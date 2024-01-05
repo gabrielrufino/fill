@@ -1,6 +1,6 @@
 {
   "name": "@gabrielrufino/fill",
-  "version": "0.1.5",
+  "version": "0.1.7",
   "description": "Fill databases with dummy data using yaml files",
   "main": "build/src/index.js",
   "bin": {
@@ -31,11 +31,11 @@
   },
   "homepage": "https://github.com/gabrielrufino/fill#readme",
   "devDependencies": {
-    "@gabrielrufino/eslint-config": "^1.5.0",
+    "@gabrielrufino/eslint-config": "^1.5.3",
     "@types/faker": "^6.6.9",
-    "@typescript-eslint/eslint-plugin": "^6.2.0",
-    "@typescript-eslint/parser": "^6.2.0",
-    "eslint": "^8.45.0",
+    "@typescript-eslint/eslint-plugin": "^6.8.0",
+    "@typescript-eslint/parser": "^6.8.0",
+    "eslint": "^8.52.0",
     "jest": "^27.5.1",
     "rimraf": "^3.0.2",
     "typescript": "^4.9.5"
@@ -44,7 +44,7 @@
     "@faker-js/faker": "^7.6.0",
     "knex": "^0.95.15",
     "mysql2": "^2.3.3",
-    "pg": "^8.11.1",
+    "pg": "^8.11.3",
     "sqlite3": "^5.1.6",
     "yaml": "^1.10.2"
   }
